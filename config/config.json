@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": 123456789,
-    "database": "mantenimiento_equipo",
-    "host": "localhost",
+    "username": "272876_victor",
+    "password": "itchmantenimiento",
+    "database": "mantenimientoequipoitch_mantenimiento_equipo",
+    "host": "mysql-mantenimientoequipoitch.alwaysdata.net",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "272876_victor",
+    "password": "itchmantenimiento",
+    "database": "mantenimientoequipoitch_mantenimiento_equipo",
+    "host": "mysql-mantenimientoequipoitch.alwaysdata.net",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "272876_victor",
+    "password": "itchmantenimiento",
+    "database": "mantenimientoequipoitch_mantenimiento_equipo",
+    "host": "mysql-mantenimientoequipoitch.alwaysdata.net",
     "dialect": "mysql"
   }
 }
