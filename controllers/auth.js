@@ -40,7 +40,7 @@ const loginUsuario = async (req, res = response) => {
             token
         })
     } catch (error) {
-        // console.log(error);
+        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Por favor hable con el administrador'
