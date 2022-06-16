@@ -19,8 +19,8 @@ const loginUsuario = async (req, res = response) => {
             });
         }
         // Confirmar password
-        // const validPassword = bcrypt.compareSync(password, usuario.password);
-        if (password!= usuario.password) {
+        const validPassword = bcrypt.compareSync(password, usuario.password);
+        if (!validPassword) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Contraseña no valida'
