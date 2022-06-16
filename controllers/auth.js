@@ -20,12 +20,12 @@ const loginUsuario = async (req, res = response) => {
         }
         // Confirmar password
         // const validPassword = bcrypt.compareSync(password, usuario.password);
-        // if (!validPassword) {
-        //     return res.status(400).json({
-        //         ok: false,
-        //         msg: 'Contraseña no valida'
-        //     });
-        // }
+        if (usuario.password) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Contraseña no valida'
+            });
+        }
         //Generar JWT
         const token = await generarJWT(usuario.id, usuario.nombre,usuario.apellidoP,usuario.apellidoM,usuario.numControl,usuario.sexo, usuario.rol);
         res.json({
