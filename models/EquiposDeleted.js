@@ -77,7 +77,7 @@ const bajasequipos = db.define('bajasequipos',{
     idEqb_user:{
         type:DataTypes.INTEGER
     }
-});
+},{tableName:'bajasequipos'} );
 
 module.exports = {
     bajasequipos

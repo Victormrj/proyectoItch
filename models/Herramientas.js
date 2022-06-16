@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 const { db } = require('../database/config');
 
-const Herramientas = db.define('Herramientas', {
+const Herramientas = db.define('herramientas', {
     tipoH: {
         type: DataTypes.STRING
     },
@@ -42,7 +42,7 @@ const Herramientas = db.define('Herramientas', {
     user_id:{
         type: DataTypes.INTEGER
     }
-});
+},{tableName:'herramientas'} );
 
 module.exports = {
     Herramientas

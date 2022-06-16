@@ -42,8 +42,8 @@ const Usuario = db.define('usuarios',{
         estado: {
             type: DataTypes.STRING,
             // required: true
-        },
-});
+        }
+}, {tableName: 'usuarios'});
 module.exports = {
     Usuario
 }

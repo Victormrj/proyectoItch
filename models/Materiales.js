@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { db } = require('../database/config');
 
-const Materiales = db.define('Materiales',{
+const Materiales = db.define('materiales',{
 
     tipoM:{
         type: DataTypes.STRING
@@ -45,7 +45,7 @@ const Materiales = db.define('Materiales',{
     user_idm:{
         type: DataTypes.INTEGER
     }
-});
+},{tableName:'materiales'} );
 
 module.exports = {
     Materiales
