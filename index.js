@@ -45,7 +45,9 @@ app.use('/api/materiales', require('./routes/materiales'));
 app.use('/api/equipos', require('./routes/equipos'));
 app.use('/api/bajasEquipos', require('./routes/bajasEquipos'));
 
-
+app.get('*',(req, res)=>{
+    res.sendFile(__dirname + '/public/index.html')
+})
 
 
 //TODO: CRUD: Eventos
