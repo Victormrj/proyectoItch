@@ -1,52 +1,55 @@
 const { DataTypes } = require('sequelize');
-
 const { db } = require('../database/config');
 
-const Herramientas = db.define('herramientas', {
-    tipoH: {
+const MaterialTemporal = db.define('temporal',{
+
+    tipoM:{
         type: DataTypes.STRING
     },
-    nombreH: {
+    codigoM:{
         type: DataTypes.STRING
     },
-    codigo: {
+    nombreM:{
         type: DataTypes.STRING
     },
-    descripcion: {
-        type: DataTypes.STRING
-    },
-    cantidad: {
+    cantidadM:{
         type: DataTypes.INTEGER
     },
-    observaciones: {
+    unidadM:{
         type: DataTypes.STRING
     },
-    horaIngreso: {
-        type: DataTypes.TIME
+    descripcionM:{
+        type:DataTypes.STRING
     },
-    fechaIngreso: {
-        type: DataTypes.DATE
+    obervacionesM:{
+        type: DataTypes.STRING
     },
-    precioCosto: {
+    precioCosto:{
         type: DataTypes.DOUBLE
     },
-    precioVenta: {
+    precioVenta:{
         type: DataTypes.DOUBLE
     },
-    precioMayoreo: {
+    precioMayoreo:{
         type: DataTypes.DOUBLE
     },
-    precioMinimo: {
+    precioMinimo:{
         type: DataTypes.DOUBLE
     },
-    user_id:{
+    horaIngreso:{
+        type: DataTypes.STRING
+    },
+    fechaIngreso:{
+        type: DataTypes.STRING
+    },
+    user_idmtemporal:{
         type: DataTypes.INTEGER
     },
     tipo: {
         type: DataTypes.STRING
     }
-},{tableName:'herramientas'} );
+},{tableName:'temporal'} );
 
 module.exports = {
-    Herramientas
+    MaterialTemporal
 }

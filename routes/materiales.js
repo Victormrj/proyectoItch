@@ -6,8 +6,6 @@ const { agregarMaterial, editarMaterial, eliminarMaterial, listarMaterial } = re
 const router = Router();
 router.use(validarJWT);
 
-
-
 router.get('/', listarMaterial);
 
 router.post('/', agregarMaterial);

@@ -44,6 +44,14 @@ app.use('/api/herramientas', require('./routes/herramientas'));
 app.use('/api/materiales', require('./routes/materiales'));
 app.use('/api/equipos', require('./routes/equipos'));
 app.use('/api/bajasEquipos', require('./routes/bajasEquipos'));
+app.use('/api/herramientatemporal', require('./routes/herramientatemporal'));
+// app.use('/api/materialtemporal', require('./routes/materialtemporal'));
+app.use('/api/temporal', require('./routes/temporal'));
+app.use('/api/mantenimiento', require('./routes/mantenimiento'));
+app.use('/api/materialUsados', require('./routes/materialUsados'));
+
+
+
 
 app.get('*',(req, res)=>{
     res.sendFile(__dirname + '/public/index.html')

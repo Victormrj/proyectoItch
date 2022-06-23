@@ -44,6 +44,9 @@ const Materiales = db.define('materiales',{
     },
     user_idm:{
         type: DataTypes.INTEGER
+    },
+    tipo: {
+        type: DataTypes.STRING
     }
 },{tableName:'materiales'} );
 

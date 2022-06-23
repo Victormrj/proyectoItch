@@ -1,52 +1,65 @@
 const { response } = require('express');
-// const { DataTypes } = require('sequelize/types');
 const { Herramientas } = require('../models/Herramientas');
 const { Materiales } = require('../models/Materiales');
 const { Equipos } = require('../models/Equipos');
 const { bajasequipos } = require('../models/EquiposDeleted');
-// const { Usuario } = require('../models/Usuario');
-
 const { Usuario } = require('../models/association');
+const { HerramientaTemporal } = require('../models/HerramientaTemporal');
+const { MaterialTemporal } = require('../models/MaterialTemporal');
+const { Temporal } = require('../models/Temporal');
 const { body } = require('express-validator');
 
-
-
-const agregarHerramienta = async (req, res = response) => {
-
+const addHerramientaTemporal = async (req, res = response) => {
     const { tipoH, nombreH } = req.body;
-
     try {
-
-        const existeHerramienta = await Herramientas.findOne({
+        const existeHerramienta = await HerramientaTemporal.findOne({
             where: {
                 nombreH: nombreH
             }
         });
-
         if (existeHerramienta) {
             return res.status(400).json({
                 msg: 'La herramienta ya existe en el inventario: ' + nombreH
             });
         }
-
-        herramienta = new Herramientas(req.body);
-
+        herramienta = new HerramientaTemporal(req.body);
         await herramienta.save();
         res.status(201).json({
             ok: true
         })
-
     } catch (error) {
         console.log(error);
         res.status(500).json({
             msg: 'Hable con el ADMIN',
         });
-
     }
-
 }
 
-
+const agregarHerramienta = async (req, res = response) => {
+    const { tipoH, nombreH } = req.body;
+    try {
+        const existeHerramienta = await Herramientas.findOne({
+            where: {
+                nombreH: nombreH
+            }
+        });
+        if (existeHerramienta) {
+            return res.status(400).json({
+                msg: 'La herramienta ya existe en el inventario: ' + nombreH
+            });
+        }
+        herramienta = new Herramientas(req.body);
+        await herramienta.save();
+        res.status(201).json({
+            ok: true
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el ADMIN',
+        });
+    }
+}
 
 const editarHerramienta = async (req, res = response) => {
 
@@ -87,19 +100,16 @@ const editarHerramienta = async (req, res = response) => {
 }
 
 const listarHerramienta = async (req, res = response) => {
-
     const herramienta = await Herramientas.findAll({
         include: {
             model: Usuario,
             attributes: ['nombre', 'apellidoP', 'apellidoM', 'numControl', 'rol']
         }
     });
-
     res.json({
         ok: true,
         herramienta
     });
-
 }
 
 
@@ -135,44 +145,68 @@ const eliminarHerramienta = async (req, res = response) => {
             msg: 'Hable con el ADMIN',
         });
     }
-
-
 }
 
-
-const agregarMaterial = async (req, res = response) => {
-
-    const { tipoM, nombreM } = req.body;
-
+const addTemporal = async (req, res = response) => {
+    const { tipoM, nombre } = req.body;
     try {
-
+        const existeTemporal = await Temporal.findOne({
+            where: {
+                nombre: nombre
+            }
+        });
+        if (existeTemporal) {
+            return res.status(400).json({
+                msg: 'El registro ya existe en el inventario: ' + nombre
+            });
+        }
+        temporal = new Temporal(req.body);
+        await temporal.save();
+        res.status(201).json({
+            ok: true
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el ADMIN',
+        });
+    }
+}
+const agregarMaterial = async (req, res = response) => {
+    const { tipoM, nombreM, role } = req.body;
+    try {
         const existeMaterial = await Materiales.findOne({
             where: {
                 nombreM: nombreM
             }
         });
-
         if (existeMaterial) {
             return res.status(400).json({
                 msg: 'El Material ya existe en el inventario: ' + nombreM
             });
         }
+        if (role == 'servicio social') {
+            return res.status(400).json({
+                msg: 'Necesitas permiso de Administrador'
+            });
+        }
+        if (role == 'Administrador') {
+            material = new Materiales(req.body);
+            await material.save();
+            res.status(201).json({
+                ok: true
+            })
+        }
+        //VALIDACION DE SERVICIO SOCIAL Y ADMIN AL DAR DE ALTA
 
-        material = new Materiales(req.body);
 
-        await material.save();
-        res.status(201).json({
-            ok: true
-        })
 
     } catch (error) {
         console.log(error);
         res.status(500).json({
             msg: 'Hable con el ADMIN',
         });
-
     }
-
 }
 
 const editarMaterial = async (req, res = response) => {
@@ -194,12 +228,43 @@ const editarMaterial = async (req, res = response) => {
                 msg: 'No tienes permiso para editar Información'
             });
         } else if (body.rol == 'Administrador') {
+            body.cantidadM = body.cantidadM-body.descuento;
             await material.update(body);
             // ok: true,
             res.json({ ok: true, material });
         }
 
 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el ADMIN',
+        });
+    }
+
+}
+const editarTemporal = async (req, res = response) => {
+    const { idT } = req.params;
+    const { body } = req;
+    // const {estado} = req.body;
+    try {
+        const temporal = await Temporal.findByPk(idT);
+        if (!temporal) {
+            return res.status(400).json({
+                msg: 'No existe el registro con ese id'
+            });
+        }
+        if (body.role == 'servicio social' || body.role == '') {
+            return res.status(400).json({
+                msg: 'Necesitas permiso de Administrador'
+            });
+        } else if (body.role == 'Administrador') {
+            // body.id=''
+            body.estado = 'Aprobado'
+            await temporal.update(body);
+            // ok: true,
+            res.json({ ok: true, temporal });
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -223,6 +288,34 @@ const listarMaterial = async (req, res = response) => {
         material,
     });
 }
+
+// const listarMaterial = async (req, res = response) => {
+
+//     const material = await Materiales.findAll({
+//         include: {
+//             model: Usuario,
+//             attributes: ['nombre', 'apellidoP', 'apellidoM', 'numControl', 'rol']
+//         }
+//     });
+
+//     res.json({
+//         ok: true,
+//         material,
+//     });
+// }
+const listarTemporal = async (req, res = response) => {
+    const temporal = await Temporal.findAll({
+        include: {
+            model: Usuario,
+            attributes: ['nombre', 'apellidoP', 'apellidoM', 'numControl', 'rol']
+        }
+    });
+    res.json({
+        ok: true,
+        temporal,
+    });
+}
+
 
 
 
@@ -296,29 +389,13 @@ const agregarEquipo = async (req, res = response) => {
 
 const bajaEquipoAdd = async (req, res = response) => {
     const { body } = req;
-
-
     try {
-
-        // const existeEquipo = await Equipos.findOne({
-        //     where: {
-        //         nombreEquio: nombreEquio
-        //     }
-        // });
-
-        // if (existeEquipo) {
-        //     return res.status(400).json({
-        //         msg: 'El equipo ya se encuentra registrado: ' + nombreEquio
-        //     });
-        // }
         body.estadoEquipo = 'Obsoleto'
         equipoB = new bajasequipos(body);
-
         await equipoB.save();
         res.status(201).json({
             ok: true
         });
-
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -326,24 +403,18 @@ const bajaEquipoAdd = async (req, res = response) => {
         });
     }
 
-
 }
 
 const editarEquipo = async (req, res = response) => {
     const { id } = req.params;
     const { body } = req;
-
     try {
-
         const equipo = await Equipos.findByPk(id);
-
         if (!equipo) {
-
             return res.status(400).json({
-                msg: 'El equipono existe en el inventario con ese id'
+                msg: 'El equipo no existe en el inventario con ese id'
             });
         }
-
         if (body.rol == 'servicio social' || body.rol == '') {
             return res.status(400).json({
                 msg: 'No tienes permiso para editar Información'
@@ -355,11 +426,7 @@ const editarEquipo = async (req, res = response) => {
                 equipo
             });
         }
-
-
         // console.log('BODY SERER', body)
-
-
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -372,19 +439,14 @@ const eliminarEquipo = async (req, res = response) => {
     const { id } = req.params;
     const { body } = req;
     // body.rol = 'Administrador'
-
     try {
-
         const equipo = await Equipos.findByPk(id);
         const equipoDel = await bajasequipos.findByPk(id);
-
-
         if (!equipo) {
             return res.status(400).json({
                 msg: 'No existe equipo con ese identificador'
             });
         }
-
         if (body.rol == 'servicio social' || body.rol == '') {
             return res.status(400).json({
                 msg: 'No tienes permiso para eliminar'
@@ -397,8 +459,6 @@ const eliminarEquipo = async (req, res = response) => {
             });
         }
         console.log('SERVER', body);
-
-
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -447,5 +507,10 @@ module.exports = {
     eliminarEquipo,
     listarEquipos,
     bajaEquipoAdd,
-    listarEquipBajas
+    listarEquipBajas,
+    addHerramientaTemporal,
+    // addMaterialTemporal,
+    listarTemporal,
+    addTemporal,
+    editarTemporal
 }

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 const { db } = require('../database/config');
 
-const Herramientas = db.define('herramientas', {
+const HerramientaTemporal = db.define('herramientatemporal', {
     tipoH: {
         type: DataTypes.STRING
     },
@@ -39,14 +39,14 @@ const Herramientas = db.define('herramientas', {
     precioMinimo: {
         type: DataTypes.DOUBLE
     },
-    user_id:{
+    us_idhertemp:{
         type: DataTypes.INTEGER
     },
     tipo: {
         type: DataTypes.STRING
     }
-},{tableName:'herramientas'} );
+},{tableName:'herramientatemporal'} );
 
 module.exports = {
-    Herramientas
+    HerramientaTemporal
 }
