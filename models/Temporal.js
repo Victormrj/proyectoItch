@@ -50,7 +50,12 @@ const Temporal = db.define('temporal', {
     },
     tipoHoM: {
         type: DataTypes.STRING
-    }    
+    },
+    adquisicion:{ type: DataTypes.DECIMAL },
+    requisicion:{ type: DataTypes.STRING },
+    factura:{ type: DataTypes.STRING },
+    sisat:{ type: DataTypes.STRING },
+    vendedor:{ type: DataTypes.STRING },   
     
 },{tableName:'temporal'} );
 

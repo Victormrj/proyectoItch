@@ -4,6 +4,7 @@ const { body } = require('express-validator');
 const { Usuario } = require('../models/Usuario');
 // const Usuario = require('../models/Usuario');
 const { generarJWT } = require('../helpers/jwt');
+
 const loginUsuario = async (req, res = response) => {
     const { email, password } = req.body;
     try {

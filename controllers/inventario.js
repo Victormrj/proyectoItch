@@ -173,7 +173,7 @@ const addTemporal = async (req, res = response) => {
     }
 }
 const agregarMaterial = async (req, res = response) => {
-    const { tipoM, nombreM, role } = req.body;
+    const { nombreM, role,otroM,} = req.body;
     try {
         const existeMaterial = await Materiales.findOne({
             where: {
@@ -185,12 +185,17 @@ const agregarMaterial = async (req, res = response) => {
                 msg: 'El Material ya existe en el inventario: ' + nombreM
             });
         }
+        
         if (role == 'servicio social') {
             return res.status(400).json({
                 msg: 'Necesitas permiso de Administrador'
             });
         }
+        // if(material.tipoM == ''){
+        //     material.tipoM = 'AAAAA'
+        // }
         if (role == 'Administrador') {
+           
             material = new Materiales(req.body);
             await material.save();
             res.status(201).json({
