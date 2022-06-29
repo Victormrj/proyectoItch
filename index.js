@@ -49,6 +49,8 @@ app.use('/api/herramientatemporal', require('./routes/herramientatemporal'));
 app.use('/api/temporal', require('./routes/temporal'));
 app.use('/api/mantenimiento', require('./routes/mantenimiento'));
 app.use('/api/materialUsados', require('./routes/materialUsados'));
+app.use('/api/personal', require('./routes/personal'));
+
 
 
 

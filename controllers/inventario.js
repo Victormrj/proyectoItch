@@ -294,20 +294,6 @@ const listarMaterial = async (req, res = response) => {
     });
 }
 
-// const listarMaterial = async (req, res = response) => {
-
-//     const material = await Materiales.findAll({
-//         include: {
-//             model: Usuario,
-//             attributes: ['nombre', 'apellidoP', 'apellidoM', 'numControl', 'rol']
-//         }
-//     });
-
-//     res.json({
-//         ok: true,
-//         material,
-//     });
-// }
 const listarTemporal = async (req, res = response) => {
     const temporal = await Temporal.findAll({
         include: {

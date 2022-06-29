@@ -53,6 +53,8 @@ const Materiales = db.define('materiales', {
     numeroFactura:{ type: DataTypes.STRING },
     numeroSisat:{ type: DataTypes.STRING },
     nombreVendedor:{ type: DataTypes.STRING },
+    areaUbicacion:{type:DataTypes.STRING}
+
 }, { tableName: 'materiales' });
 
 module.exports = {

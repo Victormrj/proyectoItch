@@ -56,6 +56,7 @@ const Temporal = db.define('temporal', {
     factura:{ type: DataTypes.STRING },
     sisat:{ type: DataTypes.STRING },
     vendedor:{ type: DataTypes.STRING },   
+    areaUbicacion:{type:DataTypes.STRING}
     
 },{tableName:'temporal'} );
 
