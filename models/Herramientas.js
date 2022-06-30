@@ -44,6 +44,9 @@ const Herramientas = db.define('herramientas', {
     },
     tipo: {
         type: DataTypes.STRING
+    },
+    areaUbicacion:{
+        type: DataTypes.STRING
     }
 },{tableName:'herramientas'} );
 
