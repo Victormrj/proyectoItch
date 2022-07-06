@@ -12,16 +12,16 @@ const { body } = require('express-validator');
 const addHerramientaTemporal = async (req, res = response) => {
     const { tipoH, nombreH } = req.body;
     try {
-        const existeHerramienta = await HerramientaTemporal.findOne({
-            where: {
-                nombreH: nombreH
-            }
-        });
-        if (existeHerramienta) {
-            return res.status(400).json({
-                msg: 'La herramienta ya existe en el inventario: ' + nombreH
-            });
-        }
+        // const existeHerramienta = await HerramientaTemporal.findOne({
+        //     where: {
+        //         nombreH: nombreH
+        //     }
+        // });
+        // if (existeHerramienta) {
+        //     return res.status(400).json({
+        //         msg: 'La herramienta ya existe en el inventario: ' + nombreH
+        //     });
+        // }
         herramienta = new HerramientaTemporal(req.body);
         await herramienta.save();
         res.status(201).json({
@@ -38,16 +38,16 @@ const addHerramientaTemporal = async (req, res = response) => {
 const agregarHerramienta = async (req, res = response) => {
     const { tipoH, nombreH } = req.body;
     try {
-        const existeHerramienta = await Herramientas.findOne({
-            where: {
-                nombreH: nombreH
-            }
-        });
-        if (existeHerramienta) {
-            return res.status(400).json({
-                msg: 'La herramienta ya existe en el inventario: ' + nombreH
-            });
-        }
+        // const existeHerramienta = await Herramientas.findOne({
+        //     where: {
+        //         nombreH: nombreH
+        //     }
+        // });
+        // if (existeHerramienta) {
+        //     return res.status(400).json({
+        //         msg: 'La herramienta ya existe en el inventario: ' + nombreH
+        //     });
+        // }
         herramienta = new Herramientas(req.body);
         await herramienta.save();
         res.status(201).json({
@@ -150,16 +150,16 @@ const eliminarHerramienta = async (req, res = response) => {
 const addTemporal = async (req, res = response) => {
     const { tipoM, nombre } = req.body;
     try {
-        const existeTemporal = await Temporal.findOne({
-            where: {
-                nombre: nombre
-            }
-        });
-        if (existeTemporal) {
-            return res.status(400).json({
-                msg: 'El registro ya existe en el inventario: ' + nombre
-            });
-        }
+        // const existeTemporal = await Temporal.findOne({
+        //     where: {
+        //         nombre: nombre
+        //     }
+        // });
+        // if (existeTemporal) {
+        //     return res.status(400).json({
+        //         msg: 'El registro ya existe en el inventario: ' + nombre
+        //     });
+        // }
         temporal = new Temporal(req.body);
         await temporal.save();
         res.status(201).json({
@@ -175,16 +175,16 @@ const addTemporal = async (req, res = response) => {
 const agregarMaterial = async (req, res = response) => {
     const { nombreM, role,otroM,} = req.body;
     try {
-        const existeMaterial = await Materiales.findOne({
-            where: {
-                nombreM: nombreM
-            }
-        });
-        if (existeMaterial) {
-            return res.status(400).json({
-                msg: 'El Material ya existe en el inventario: ' + nombreM
-            });
-        }
+        // const existeMaterial = await Materiales.findOne({
+        //     where: {
+        //         nombreM: nombreM
+        //     }
+        // });
+        // if (existeMaterial) {
+        //     return res.status(400).json({
+        //         msg: 'El Material ya existe en el inventario: ' + nombreM
+        //     });
+        // }
         
         if (role == 'servicio social') {
             return res.status(400).json({
@@ -351,17 +351,17 @@ const agregarEquipo = async (req, res = response) => {
 
     try {
 
-        const existeEquipo = await Equipos.findOne({
-            where: {
-                nombreEquio: nombreEquio
-            }
-        });
+        // const existeEquipo = await Equipos.findOne({
+        //     where: {
+        //         nombreEquio: nombreEquio
+        //     }
+        // });
 
-        if (existeEquipo) {
-            return res.status(400).json({
-                msg: 'El equipo ya se encuentra registrado: ' + nombreEquio
-            });
-        }
+        // if (existeEquipo) {
+        //     return res.status(400).json({
+        //         msg: 'El equipo ya se encuentra registrado: ' + nombreEquio
+        //     });
+        // }
         equipo = new Equipos(req.body);
 
         await equipo.save();
