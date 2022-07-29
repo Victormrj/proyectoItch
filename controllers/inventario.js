@@ -173,7 +173,7 @@ const addTemporal = async (req, res = response) => {
     }
 }
 const agregarMaterial = async (req, res = response) => {
-    const { nombreM, role,otroM,} = req.body;
+    const { nombreM, role, otroM, } = req.body;
     try {
         // const existeMaterial = await Materiales.findOne({
         //     where: {
@@ -185,7 +185,7 @@ const agregarMaterial = async (req, res = response) => {
         //         msg: 'El Material ya existe en el inventario: ' + nombreM
         //     });
         // }
-        
+
         if (role == 'servicio social') {
             return res.status(400).json({
                 msg: 'Necesitas permiso de Administrador'
@@ -195,7 +195,7 @@ const agregarMaterial = async (req, res = response) => {
         //     material.tipoM = 'AAAAA'
         // }
         if (role == 'Administrador') {
-           
+
             material = new Materiales(req.body);
             await material.save();
             res.status(201).json({
@@ -232,11 +232,19 @@ const editarMaterial = async (req, res = response) => {
             return res.status(400).json({
                 msg: 'No tienes permiso para editar Información'
             });
-        } else if (body.rol == 'Administrador') {
-            body.cantidadM = body.cantidadM-body.descuento;
+        } else if (body.rol == 'Administrador' && body.tipoDesc == '') {
             await material.update(body);
+            // if (body.tipoDesc == 'mantenimiento') {
+            // body.cantidadM = body.cantidadM - body.descuento;
+            // } 
+            // else if(body.tipoDesc == ''){
+            //     await material.update(body);
+            // }
             // ok: true,
             res.json({ ok: true, material });
+        } else if (body.rol == 'Administrador' && body.tipoDesc == 'mantenimiento') {
+            body.cantidadM = body.cantidadM - body.descuento;
+            await material.update(body);
         }
 
 
