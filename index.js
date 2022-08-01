@@ -39,6 +39,7 @@ app.use(express.json());
 //Rutas
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
+app.use('/api/eventos', require('./routes/eventos'));
 app.use('/api/cuentaUser', require('./routes/cuentaUser'));
 app.use('/api/herramientas', require('./routes/herramientas'));
 app.use('/api/materiales', require('./routes/materiales'));

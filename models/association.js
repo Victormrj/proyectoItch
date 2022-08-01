@@ -8,9 +8,14 @@ const { MaterialTemporal } = require('./MaterialTemporal');
 const { Temporal } = require('./Temporal')
 const { Mantenimientos } = require('./Mantenimiento');
 const { MaterialUsado } = require('./MaterialUsado')
+const { Eventos } = require('./Eventos')
 
 Herramientas.belongsTo(Usuario,{foreignKey:'user_id'});
 Usuario.hasMany(Herramientas,{foreignKey:'user_id'});
+
+Eventos.belongsTo(Usuario,{foreignKey:'id_userEvento'});
+Usuario.hasMany(Eventos,{foreignKey:'id_userEvento'});
+
 
 HerramientaTemporal.belongsTo(Usuario,{foreignKey:'us_idhertemp'});//AQUI
 Usuario.hasMany(HerramientaTemporal,{foreignKey:'us_idhertemp'})//AQUI user_idmtemporal
@@ -45,5 +50,6 @@ module.exports = {
     bajasequipos,
     Temporal,
     Mantenimientos,
-    MaterialUsado
+    MaterialUsado,
+    Eventos
 }
